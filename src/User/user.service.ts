@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException, Param, ParseIntPipe } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user-dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdatePutUserDto } from "./dto/update-put-user.dto";
@@ -6,6 +6,7 @@ import { UpdatePatchUserDto } from "./dto/updatePatchUser.dto";
 
 @Injectable()
 export class UserService {
+    [x: string]: any;
 
     constructor(private readonly prisma: PrismaService){
 
@@ -38,6 +39,8 @@ export class UserService {
 
     async update(id: number, {email, name, password, birthAt}: UpdatePutUserDto){
 
+        await this.exists(id); // chamada do metodo para verificar se o usuario existe 
+
         console.log({email, name, password, birthAt});
 
         if (!birthAt){
@@ -54,6 +57,8 @@ export class UserService {
 
     async updatePartial(id: number, {email, name, password, birthAt} : UpdatePatchUserDto){
 
+        await this.exists(id); // chamada do metodo para verificar se o usuario existe 
+
         const data: any = {};
 
         if (birthAt) {
@@ -61,15 +66,15 @@ export class UserService {
         }
 
         if (email) {
-            data.email = new Date (email);
+            data.email = email;
         }
-
+        
         if (name) {
-            data.name = new Date (name);
+            data.name = name;
         }
-
+        
         if (password) {
-            data.password = new Date (password);
+            data.password = password;
         }
         
         return this.prisma.user.update({
@@ -79,4 +84,19 @@ export class UserService {
             }
         });
     }    
+
+    async delete (id: number){
+
+        await this.exists(id); // chamada do metodo para verificar se o usuario existe 
+
+        return this.prisma.user.delete({
+            where: { id },
+        });
+    }
+
+    async exists (id: number){ // criando método para verificar se id existe
+        if (!await this.show(id)){
+            throw new NotFoundException(`O usuario com esse ${id} nao existe!`);
+        }
+    }
 }
