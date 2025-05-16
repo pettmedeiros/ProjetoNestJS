@@ -4,6 +4,7 @@ import { UpdatePutUserDto } from "./dto/update-put-user.dto";
 import { UpdatePatchUserDto } from "./dto/updatePatchUser.dto";
 import { UserService } from "./user.service";
 import { LogInterceptor } from "src/interceptors/log.interceptor";
+import { ParamId } from "src/decorators/param-id.decorator";
 
 @Controller('users')
 export class UserController{
@@ -22,12 +23,12 @@ export class UserController{
     }
 
     @Get(':id')
-    async show(@Param('id', ParseIntPipe) id: number){
+    async show(@ParamId() id: number){ // usei @ParamID() como um exemplo de decorator personalizado, o que permite um código menor
         return this.userService.show(id);
     }
 
     @Put(':id')
-    async update(@Body() data: UpdatePutUserDto, @Param('id', ParseIntPipe) id: number){
+    async update(@Body() data: UpdatePutUserDto, @Param('id', ParseIntPipe) id: number){ //aqui deixei o @Param() normal, o que fica maior o código
         return this.userService.update(id, data);
 
     }
