@@ -9,7 +9,7 @@ import path from "path";
     imports: [PrismaModule],
     controllers: [UserController],
     providers: [UserService],
-    exports: []
+    exports: [UserService]
 })
 export class UserModule implements NestModule{
 
