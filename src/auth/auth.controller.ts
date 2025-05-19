@@ -16,24 +16,24 @@ export class AuthController{
 
     @Post('login')
     async login(@Body() body: AuthLoginDto){
-        const { email, password } = body;
+        const { email, password } = body; //destructuring do DTO e passar explicitamente
         return this.authService.login(email, password);
     }
 
     @Post('register')
     async register(@Body() body: AuthRegisterDto){
-        return this.userService.create(body);
+        return this.userService.register(body);
     }
 
     @Post('forget')
     async forget(@Body() body: AuthForgetDto) {
-        const { email } = body;
-        return this.authService.forget(email);
+        const { email } = body; //destructuring do DTO e passar explicitamente
+        return this.authService.forget(email); 
     }
 
     @Post('reset')
     async reset(@Body() body : AuthResetDto) {
-        const { password, token } = body;
+        const { password, token } = body; // destructuring do DTO e passar explicitamente
         return this.authService.reset(password, token); 
     }
 
