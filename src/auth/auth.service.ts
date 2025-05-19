@@ -16,7 +16,7 @@ export class AuthService{
         private readonly userService: UserService
     ){}
 
-    async createToken(user: User){ //criando token para login
+     createToken(user: User){ //criando token para login
        return{
         accessToken: this.jwtService.sign({
         id: user.id,
@@ -31,10 +31,10 @@ export class AuthService{
      }
     };
 
-    async checkToken(token : string){
+    checkToken(token : string){
 
-    try{ 
-        const data = this.jwtService.verify(token, {
+        try{ 
+            const data = this.jwtService.verify(token, {
 
             issuer: 'this.issuer',
             audience: 'this.audience'
@@ -46,7 +46,7 @@ export class AuthService{
         }
     } 
 
-    async IsValidToken(token: string){
+    IsValidToken(token: string){
         try{
             this.checkToken(token);
             return true;
@@ -62,7 +62,7 @@ export class AuthService{
                 email,
                 password
             }
-        });
+        }); 
 
         if (!user) {
         throw new UnauthorizedException('E-mail ou senha incorrertos"');
