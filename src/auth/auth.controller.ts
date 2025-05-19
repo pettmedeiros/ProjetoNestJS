@@ -6,6 +6,7 @@ import { AuthResetDto } from "./auth-reset.dto";
 import { UserService } from "src/User/user.service";
 import { AuthService } from "./auth.service";
 import { AuthGuard } from "./guards/auth.guard";
+import { User } from "src/decorators/user.decorator";
 
 @Controller('auth')
 export class AuthController{
@@ -41,8 +42,8 @@ export class AuthController{
 
     @UseGuards(AuthGuard)
     @Post('me')
-    async me(@Req() req){  
+    async me(@User('email') user){  
          
-        return {me: 'ok', data: req.tokenPayload};
+        return {user};  // verifica os dados do token e verifica tbm os dados do banco de dados 
     } 
 } 
