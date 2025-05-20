@@ -24,7 +24,7 @@ export class UserController{
         return this.userService.create(data);
     }
 
-    @Roles(Role.admin) // apenas o usuário administrador pode ter acesso
+    @Roles(Role.admin, Role.User) // usuário administrador  e o usuário podem ter acesso
     @UseInterceptors(LogInterceptor) // estou interceptando e fazendo um log para calcular o tempo que levar listar todos os usurios 
     @Get()
     async list(){
