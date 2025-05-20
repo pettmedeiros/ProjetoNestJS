@@ -42,7 +42,7 @@ export class AuthController{
 
     @UseGuards(AuthGuard)
     @Post('me')
-    async me(@User('email') user){  
+    async me(@User() user){  
          
         return {user};  // verifica os dados do token e verifica tbm os dados do banco de dados 
     } 

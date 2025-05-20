@@ -1,4 +1,4 @@
-import { Module } from "@nestjs/common";
+import { forwardRef, Module } from "@nestjs/common";
 import { JwtModule } from "@nestjs/jwt";
 import { AuthController } from "./auth.controller";
 import { UserModule } from "src/User/user.module";
@@ -9,11 +9,12 @@ import { AuthService } from "./auth.service";
     imports: [JwtModule.register({
         secret: `dg9f!A<!'/wA|U&9HyB204akhmYre}Ut` //chave para vlidar o token
     }),
-    UserModule, 
+    forwardRef(() => UserModule), // usei para anular o ciclo de dependencia 
     PrismaModule
 ],
     controllers: [AuthController],
-    providers: [AuthService]
+    providers: [AuthService],
+    exports: [AuthService]
 })
 export class AuthModule {
 

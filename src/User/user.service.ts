@@ -3,6 +3,7 @@ import { CreateUserDto } from "./dto/create-user-dto";
 import { PrismaService } from "src/prisma/prisma.service";
 import { UpdatePutUserDto } from "./dto/update-put-user.dto";
 import { UpdatePatchUserDto } from "./dto/updatePatchUser.dto";
+import { Role } from "src/enums/role.enum";
 
 @Injectable()
 export class UserService {
@@ -40,7 +41,7 @@ export class UserService {
         })
     }
 
-    async update(id: number, {email, name, password, birthAt}: UpdatePutUserDto){
+    async update(id: number, {email, name, password, birthAt, role}: UpdatePutUserDto){
 
         await this.exists(id); // chamada do metodo para verificar se o usuario existe 
 
@@ -51,14 +52,14 @@ export class UserService {
         }
 
         return this.prisma.user.update({
-            data: {email, name, password, birthAt: birthAt ? new Date(birthAt) : null},
+            data: {email, name, password, birthAt: birthAt ? new Date(birthAt) : null, role},
             where: {
                 id
             }
         });
     }
 
-    async updatePartial(id: number, {email, name, password, birthAt} : UpdatePatchUserDto){
+    async updatePartial(id: number, {email, name, password, birthAt, role} : UpdatePatchUserDto){
 
         await this.exists(id); // chamada do metodo para verificar se o usuario existe 
 
@@ -78,6 +79,10 @@ export class UserService {
         
         if (password) {
             data.password = password;
+        }
+
+        if (role) {
+            data.role = role;
         }
         
         return this.prisma.user.update({
