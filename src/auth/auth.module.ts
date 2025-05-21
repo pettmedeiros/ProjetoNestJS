@@ -7,7 +7,7 @@ import { AuthService } from "./auth.service";
 
 @Module({
     imports: [JwtModule.register({
-        secret: `dg9f!A<!'/wA|U&9HyB204akhmYre}Ut` //chave para vlidar o token
+        secret: process.env.JWT_SECRET // VAI PROCURAR O TOKEN NO ARQUIVO ENV
     }),
     forwardRef(() => UserModule), // usei para anular o ciclo de dependencia 
     PrismaModule
