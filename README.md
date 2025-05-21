@@ -12,7 +12,8 @@
 
 ## 📚 Sobre o projeto
 
-Este projeto é uma API RESTful desenvolvida com NestJS para autenticação de usuários, utilizando Prisma ORM para acesso ao banco de dados PostgreSQL. A aplicação implementa autenticação com JSON Web Tokens (JWT) e boas práticas de arquitetura modular.
+Este projeto foi desenvolvido com fins educacionais e de aprendizado prático sobre o framework NestJS.
+Trata-se de uma API RESTful desenvolvida com NestJS para autenticação de usuários, utilizando Prisma ORM para acesso ao banco de dados PostgreSQL. A aplicação implementa autenticação com JSON Web Tokens (JWT) e segue boas práticas de organização modular e segurança.
 
 Foram implementadas as seguintes funcionalidades:
 - Cadastro de usuários
